@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +30,23 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # ... other settings ...
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    # 'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=30),
+    # 'SLIDING_TOKEN_REFRESH_LIFETIME_IN_SECONDS': 86400,
+    # 'SLIDING_TOKEN_REFRESH_TIMEOUT': 600,
+    # 'SLIDING_TOKEN_REFRESH_TIMEOUT_IN_SECONDS': 600,
+}
+
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -103,6 +121,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL = "userapp.CustomUser"
 
 
 # Internationalization
